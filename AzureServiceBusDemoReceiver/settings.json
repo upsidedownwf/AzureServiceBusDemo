@@ -1,0 +1,8 @@
+{
+  "AzureServiceBus": {
+    "ConnectionString": "",
+    "Queue": "",
+    "Topic": "",
+    "Subscription": ""
+  }
+}
