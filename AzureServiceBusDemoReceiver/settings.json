@@ -4,5 +4,13 @@
     "Queue": "",
     "Topic": "",
     "Subscription": ""
+  },
+  "Seq": {
+    "ServerUrl": "",
+    "ApiKey": "",
+    "MinimumLevel": "Trace",
+    "LevelOverride": {
+      "Microsoft": "Information"
+    }
   }
 }

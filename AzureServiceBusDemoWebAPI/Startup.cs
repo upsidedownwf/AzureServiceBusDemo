@@ -29,14 +29,18 @@ namespace AzureServiceBusDemoWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddSeq(Configuration.GetSection("Seq"));
+            });
             string connectionstring = Configuration["AzureServiceBus:ConnectionString"];
             services.AddSingleton<IQueueClient>(serviceProvider => {
-                string queueName = Configuration["AzureServiceBus:quque"];
-                return new QueueClient(connectionstring, queueName); ;
+                string queueName = Configuration["AzureServiceBus:Queue"];
+                return new QueueClient(connectionstring, queueName);
             });
             services.AddSingleton<ITopicClient>(serviceProvider => {
                 string topicName = Configuration["AzureServiceBus:Topic"];
-                return new TopicClient(connectionstring, topicName); ;
+                return new TopicClient(connectionstring, topicName);
             });
             services.AddTransient<IQueueService, QueueService>();
         }
@@ -59,6 +63,9 @@ namespace AzureServiceBusDemoWebAPI
             {
                 endpoints.MapGet("/", async context =>
                 {
+                    var services = app.ApplicationServices;
+                    var logger = services.GetService<ILogger<Startup>>();
+                    logger.LogInformation("Jon-Ajumobi Olamide. (c) {CurrentDate}. Welcome to my Azure Service Bus Demo Web API.", DateTime.Now.Year);
                     await context.Response.WriteAsync($"Jon-Ajumobi Olamide. (c) {DateTime.Now.Year}. Welcome to my Azure Service Bus Demo Web API.");
                 });
                 endpoints.MapControllers();

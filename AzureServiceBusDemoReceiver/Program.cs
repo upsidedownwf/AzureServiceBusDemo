@@ -31,7 +31,8 @@ namespace AzureServiceBusDemoReceiver
             };
             subscriptionClient.RegisterMessageHandler(ProcessMessageAsync, messageHandlerOptions);
             Console.ReadLine();
-            await queueClient.CloseAsync();
+            //await queueClient.CloseAsync();
+            await subscriptionClient.CloseAsync();
         }
 
         private static async Task ProcessMessageAsync(Message messsage, CancellationToken cancellationToken)
