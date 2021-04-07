@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerDemo";
+
+service Customers{
+  rpc GetCustomers (EmptyModel) returns (stream CustomerModel);
+}
+message EmptyModel{
+
+}
+message CustomerModel{
+	string name=1;
+	string email= 2;
+}
