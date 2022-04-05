@@ -21,7 +21,9 @@ namespace AzureServiceBusDemoWebAPI.Services
         public Task SendMessage<T>(T message) where T : Person
         {
             string messageBody = JsonConvert.SerializeObject(message);
-            var servicebusmessage = new Message(Encoding.UTF8.GetBytes(messageBody));
+            var servicebusmessage = new Message(Encoding.UTF8.GetBytes(messageBody)) { 
+                ContentType= ""
+            };
             //A topic would send a message to all its subscribers unless a filter is applied to send to some specific suscriber(s)
             //when a topic has more than one subscriber you can set a KVP filter on each subscription on azure portal
             //The commented below for subscriptions with a filter set on azure as Key: messgeType, Value: Person

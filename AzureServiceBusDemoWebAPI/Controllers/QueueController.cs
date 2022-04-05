@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AzureServiceBusDemoWebAPI.Services;
 using AzureServiceBusModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace AzureServiceBusDemoWebAPI.Controllers
             _logger = logger;
             this.queueService = queueService;
         }
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<IActionResult> AddPerson(Person person)
         {
             await queueService.SendMessage(person);
